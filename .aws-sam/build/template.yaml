@@ -12,7 +12,8 @@ Globals:
     CodeUri: todos/
     Environment:
       Variables:
-        TODO_TABLE: todo
+        TODO_TABLE:
+          Ref: TodoSamTable
   HttpApi:
     CorsConfiguration:
       AllowOrigins:
@@ -48,7 +49,8 @@ Resources:
       Handler: listTodos.handler
       Policies:
       - DynamoDBCrudPolicy:
-          TableName: todo
+          TableName:
+            Ref: TodoSamTable
       Events:
         HelloWorld:
           Type: HttpApi
@@ -62,7 +64,8 @@ Resources:
       Handler: getTodo.handler
       Policies:
       - DynamoDBCrudPolicy:
-          TableName: todo
+          TableName:
+            Ref: TodoSamTable
       Events:
         HelloWorld:
           Type: HttpApi
@@ -76,7 +79,8 @@ Resources:
       Handler: updateTodo.handler
       Policies:
       - DynamoDBCrudPolicy:
-          TableName: todo
+          TableName:
+            Ref: TodoSamTable
       Events:
         HelloWorld:
           Type: HttpApi
@@ -90,7 +94,8 @@ Resources:
       Handler: createTodo.handler
       Policies:
       - DynamoDBCrudPolicy:
-          TableName: todo
+          TableName:
+            Ref: TodoSamTable
       Events:
         HelloWorld:
           Type: HttpApi
@@ -104,7 +109,8 @@ Resources:
       Handler: deleteTodo.handler
       Policies:
       - DynamoDBCrudPolicy:
-          TableName: todo
+          TableName:
+            Ref: TodoSamTable
       Events:
         HelloWorld:
           Type: HttpApi
@@ -112,6 +118,12 @@ Resources:
             Path: /todos/{id}
             Method: delete
       CodeUri: DeleteTodoFunction
+  TodoSamTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: id
+        Type: String
 Outputs:
   HelloWorldApi:
     Description: API Gateway endpoint URL for Prod stage for Hello World function

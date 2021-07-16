@@ -13,8 +13,8 @@ Globals:
     CodeUri: todos/
     Environment:
       Variables:
-        TODO_TABLE: todo
-        # TODO_TABLE: !Ref TodoSamTable
+        # TODO_TABLE: todo
+        TODO_TABLE: !Ref TodoSamTable
   HttpApi:
     CorsConfiguration:
       AllowOrigins:
@@ -51,7 +51,7 @@ Resources:
       Handler: listTodos.handler
       Policies:
         - DynamoDBCrudPolicy:
-            TableName: todo
+            TableName: !Ref TodoSamTable
       Events:
         HelloWorld:
           Type: HttpApi # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
@@ -65,7 +65,7 @@ Resources:
       Handler: getTodo.handler
       Policies:
         - DynamoDBCrudPolicy:
-            TableName: todo
+            TableName: !Ref TodoSamTable
       Events:
         HelloWorld:
           Type: HttpApi
@@ -79,7 +79,7 @@ Resources:
       Handler: updateTodo.handler
       Policies:
         - DynamoDBCrudPolicy:
-            TableName: todo
+            TableName: !Ref TodoSamTable
       Events:
         HelloWorld:
           Type: HttpApi
@@ -93,7 +93,7 @@ Resources:
       Handler: createTodo.handler
       Policies:
         - DynamoDBCrudPolicy:
-            TableName: todo
+            TableName: !Ref TodoSamTable
       Events:
         HelloWorld:
           Type: HttpApi
@@ -107,13 +107,20 @@ Resources:
       Handler: deleteTodo.handler
       Policies:
         - DynamoDBCrudPolicy:
-            TableName: todo
+            TableName: !Ref TodoSamTable
       Events:
         HelloWorld:
           Type: HttpApi
           Properties:
             Path: /todos/{id}
             Method: delete
+
+  TodoSamTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: id
+        Type: String
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
