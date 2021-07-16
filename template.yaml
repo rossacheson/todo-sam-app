@@ -59,6 +59,20 @@ Resources:
             Path: /todos
             Method: get
 
+  GetTodoFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: getTodo.handler
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: todo
+      Events:
+        HelloWorld:
+          Type: HttpApi
+          Properties:
+            Path: /todos/{id}
+            Method: get
+
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
