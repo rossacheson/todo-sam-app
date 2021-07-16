@@ -6,6 +6,6 @@ codeuri = "C:\\dev\\todo-sam-app\\todos"
 runtime = "nodejs14.x"
 source_md5 = ""
 packagetype = "Zip"
-functions = ["HelloWorldFunction", "ListTodosFunction", "GetTodoFunction"]
+functions = ["HelloWorldFunction", "ListTodosFunction", "GetTodoFunction", "UpdateTodoFunction", "CreateTodoFunction", "DeleteTodoFunction"]
 
 [layer_build_definitions]
